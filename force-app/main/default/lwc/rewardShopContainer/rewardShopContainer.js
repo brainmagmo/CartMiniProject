@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 import BLACK_HAT from '@salesforce/resourceUrl/black_hat';
 import BLACK_SHIRT from '@salesforce/resourceUrl/black_shirt';
@@ -76,4 +76,25 @@ const REWARDS = [
 
 export default class RewardShopContainer extends LightningElement {
     rewards = REWARDS;
+
+    @track cart = [];
+
+    //to catch events from cards
+    addToCart(event){
+        let item = {
+            title: event.detail.title,
+            amount: event.detail.amount,
+        };
+        //if the item is in the cart, just increment the amount
+        for(let reward of this.cart) {
+            if(reward.title && reward.title == item.title) {
+                if(reward.amount) {
+                    reward.amount += item.amount
+                    return;
+                }
+            }
+        }
+        //else add item to cart
+        this.cart.push(item);
+    }
 }

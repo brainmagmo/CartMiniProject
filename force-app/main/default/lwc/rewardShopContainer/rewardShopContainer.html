@@ -1,18 +1,30 @@
 <!--
   @description       : 
-  @author            : Ben Learn
+  @author            : Ben Learn, Trevor Kleinstuber
   @group             : 
-  @last modified on  : 03-09-2022
-  @last modified by  : Ben Learn
+  @last modified on  : 03-14-2022
+  @last modified by  : Trevor Kleinstuber
 -->
 <template>
-    <div class="slds-box slds-theme_default">
-        <lightning-layout multiple-rows horizontal-align="spread">
-            <template for:each={rewards} for:item="reward">
-                <lightning-layout-item size="4" padding="around-small" key={reward.title}>
-                    <c-reward-card item-img-url={reward.url} item-title={reward.title}></c-reward-card>
-                </lightning-layout-item>
-            </template>
-        </lightning-layout>
+    <div class="slds-grid">
+        <div class="slds-col slds-box slds-size_3-of-4 slds-theme_default">
+            <lightning-layout multiple-rows horizontal-align="spread">
+                <template for:each={rewards} for:item="reward">
+                    <lightning-layout-item size="4" padding="around-small" key={reward.title}>
+                        <c-reward-card item-img-url={reward.url} item-title={reward.title} onaddtocart={addToCart}></c-reward-card>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-box slds-theme_default">
+            <lightning-icon icon-name="standard:webcart" alternative-text="REWARDS CART" title="REWARDS CART"></lightning-icon>
+            <lightning-card title="REWARDS CART">
+                <template for:each={cart} for:item="reward">
+                    <lightning-layout-item key={reward.title}>
+                        <c-reward-item title={reward.title} amount={reward.amount}></c-reward-item>
+                    </lightning-layout-item>
+                </template>
+            </lightning-card>
+        </div>
     </div>
 </template>
